@@ -17,10 +17,15 @@ defmodule GoodTimes.Router do
 
     resources "/users", UserController
     resources "/parties", PartyController
-    
-    get "/", PageController, :index
 
-    # Registration routes
+    # Session Routes    
+    get "/", SessionController, :new
+    post "/login", SessionController, :create
+    get "/logout", SessionController, :delete
+    
+    get "/pages", PageController, :index
+
+    # Registration Routes
     get "/registration", RegistrationController, :new
     post "/registration", RegistrationController, :create
   end
