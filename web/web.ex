@@ -28,6 +28,8 @@ defmodule GoodTimes.Web do
 
       # Alias the data repository and import query/model functions
       alias GoodTimes.Repo
+      alias GoodTimes.User
+      
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
 

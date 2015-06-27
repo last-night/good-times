@@ -15,9 +15,14 @@ defmodule GoodTimes.Router do
   scope "/", GoodTimes do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
     resources "/users", UserController
     resources "/parties", PartyController
+    
+    get "/", PageController, :index
+
+    # Registration routes
+    get "/registration", RegistrationController, :new
+    post "/registration", RegistrationController, :create
   end
 
 
