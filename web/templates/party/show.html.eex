@@ -1,0 +1,17 @@
+<h2>Show party</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @party.name %>
+  </li>
+
+  <li>
+    <strong>Location:</strong>
+    <%= @party.location %>
+  </li>
+
+</ul>
+
+<%= link "Back", to: party_path(@conn, :index) %>
