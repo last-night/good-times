@@ -3,6 +3,7 @@ defmodule GoodTimes.PartyController do
 
   alias GoodTimes.Party
 
+  plug GoodTimes.Plug.Authenticate
   plug :scrub_params, "party" when action in [:create, :update]
   plug :action
 
