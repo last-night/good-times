@@ -22,8 +22,6 @@ defmodule GoodTimes.Router do
     get "/", SessionController, :new
     post "/login", SessionController, :create
     get "/logout", SessionController, :delete
-    
-    get "/pages", PageController, :index
 
     # Registration Routes
     get "/registration", RegistrationController, :new

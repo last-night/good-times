@@ -2,7 +2,7 @@
   Hello, <%= @current_user.username %> <%= link "Logout", to: session_path(@conn, :delete), class: "btn btn-default pull-right" %>
 </div>
 
-<h2>Listing parties</h2>
+<h2>So Many Good Times</h2>
 
 <table class="table">
   <thead>
@@ -20,7 +20,7 @@
       <td><%= party.location %></td>
 
       <td class="text-right">
-        <%= link "Show", to: party_path(@conn, :show, party), class: "btn btn-default btn-xs" %>
+        <%= link "Enter Party", to: party_path(@conn, :show, party), class: "btn btn-success btn-xs" %>
         <%= link "Edit", to: party_path(@conn, :edit, party), class: "btn btn-default btn-xs" %>
         <%= link "Delete", to: party_path(@conn, :delete, party), method: :delete, class: "btn btn-danger btn-xs" %>
       </td>

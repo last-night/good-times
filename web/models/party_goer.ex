@@ -1,18 +1,17 @@
-defmodule GoodTimes.Party do
+defmodule GoodTimes.PartyGoer do
   use GoodTimes.Web, :model
 
-  schema "parties" do
-    has_many :party_goers, PartyGoer
-    has_many :users, through: [:party_goers, :users]
+  schema "party_goers" do
+    belongs_to :party, GoodTimes.Party
+    belongs_to :user, GoodTimes.User
 
-    field :name, :string
-    field :location, :string
+    field :drink_count, :integer
 
     timestamps
   end
 
-  @required_fields ~w(name location)
-  @optional_fields ~w()
+  @required_fields ~w(user_id party_id)
+  @optional_fields ~w(drink_count)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -23,5 +22,6 @@ defmodule GoodTimes.Party do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> validate_unique(:user_id, scope: [:party_id], on: GoodTimes.Repo)
   end
 end

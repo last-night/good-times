@@ -2,6 +2,9 @@ defmodule GoodTimes.User do
   use GoodTimes.Web, :model
 
   schema "users" do
+    has_many :party_goers, PartyGoer
+    has_many :parties, through: [:party_goers, :parties]
+
     field :username, :string
     field :email, :string
     field :encrypted_password, :string
@@ -23,9 +26,10 @@ defmodule GoodTimes.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    |> validate_unique(:username, on: GoodTimes.Repo, downcase: true)
     |> validate_length(:password, min: 1)
     |> validate_length(:password_confirmation, min: 1)
     |> validate_confirmation(:password)
+    |> validate_format(:email, ~r/@/)
+    |> validate_unique(:username, on: GoodTimes.Repo, downcase: true)
   end
 end
