@@ -2,7 +2,7 @@ defmodule GoodTimes.UserControllerTest do
   use GoodTimes.ConnCase
 
   alias GoodTimes.User
-  @valid_attrs %{email: "some content", password: "some content", username: "some content"}
+  @valid_registration %{email: "test@test.com", password: "password", password_confirmation: "password", username: "username"}
   @invalid_attrs %{}
 
   setup do
@@ -18,12 +18,6 @@ defmodule GoodTimes.UserControllerTest do
   test "renders form for new resources", %{conn: conn} do
     conn = get conn, user_path(conn, :new)
     assert html_response(conn, 200) =~ "New user"
-  end
-
-  test "creates resource and redirects when data is valid", %{conn: conn} do
-    conn = post conn, user_path(conn, :create), user: @valid_attrs
-    assert redirected_to(conn) == user_path(conn, :index)
-    assert Repo.get_by(User, @valid_attrs)
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do

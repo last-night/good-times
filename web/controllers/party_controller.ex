@@ -2,6 +2,7 @@ defmodule GoodTimes.PartyController do
   use GoodTimes.Web, :controller
 
   alias GoodTimes.Party
+  alias GoodTimes.PartyGoer
 
   plug GoodTimes.Plug.Authenticate
   plug :scrub_params, "party" when action in [:create, :update]
@@ -33,6 +34,21 @@ defmodule GoodTimes.PartyController do
 
   def show(conn, %{"id" => id}) do
     party = Repo.get(Party, id)
+    user = get_session(conn, :current_user)
+    changeset = PartyGoer.changeset(%PartyGoer{}, %{
+        "user_id" => user.id,
+        "party_id" => party.id,
+        "drink_count" => 0})
+    
+    if changeset.valid? do
+      IO.puts 'shit'
+      Repo.insert!(changeset)
+    end
+
+    party_goers = Repo.all(PartyGoer)
+    IO.puts Enum.count(party_goers)
+
+    # IO.puts
     render(conn, "show.html", party: party)
   end
 

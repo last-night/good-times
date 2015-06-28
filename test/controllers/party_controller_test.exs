@@ -3,14 +3,13 @@ defmodule GoodTimes.PartyControllerTest do
 
   alias GoodTimes.Party
   @valid_attrs %{location: "some content", name: "some content"}
-  @invalid_attrs %{}
 
   setup do
     conn = conn()
     {:ok, conn: conn}
   end
 
-  test "lists all entries on index", %{conn: conn} do
+  test "lists all parties on index", %{conn: conn} do
     conn = get conn, party_path(conn, :index)
     assert html_response(conn, 200) =~ "Listing parties"
   end
@@ -20,15 +19,10 @@ defmodule GoodTimes.PartyControllerTest do
     assert html_response(conn, 200) =~ "New party"
   end
 
-  test "creates resource and redirects when data is valid", %{conn: conn} do
+  test "creates a new party and redirects when data is valid", %{conn: conn} do
     conn = post conn, party_path(conn, :create), party: @valid_attrs
     assert redirected_to(conn) == party_path(conn, :index)
     assert Repo.get_by(Party, @valid_attrs)
-  end
-
-  test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, party_path(conn, :create), party: @invalid_attrs
-    assert html_response(conn, 200) =~ "New party"
   end
 
   test "shows chosen resource", %{conn: conn} do
